@@ -90,7 +90,7 @@ check_sqlite_db
 echo -e "${CYAN}🔐 Configurando Permissões dos Scripts${NC}"
 chmod +x iniciar_wuzapi.sh
 chmod +x loop_wuzapi.sh
-chmod +x kill_atubot.sh
+chmod +x kill_wuzAPI.sh
 
 echo -e "${CYAN}🚀 Iniciando Processo em Segundo Plano${NC}"
 if check_loop_running; then
