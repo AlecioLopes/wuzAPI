@@ -5,7 +5,7 @@ cd ~/wuzapi || exit 1
 MAX_RETRIES=5
 FAILED_ATTEMPTS=0
 
-# Verificar si ya se está ejecutando wuzapi
+# Verificar se está executando wuzAPI
 if pgrep -f "./wuzapi" > /dev/null; then
   exit 0
 fi
