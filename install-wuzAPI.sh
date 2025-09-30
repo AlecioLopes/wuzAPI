@@ -9,7 +9,7 @@ RED='\033[1;31m'
 
 echo ""
 echo -e "${CYAN}${BOLD}═══════════════════════════════════════════════════"
-echo -e "${GREEN}       Bem-vindo ao ${BOLD}Layout's Automação V5.3${NC}${GREEN} 🚀"
+echo -e "${GREEN}       Bem-vindo ao ${BOLD}Layout's Automação v007${NC}${GREEN} 🚀"
 echo -e "${CYAN}═══════════════════════════════════════════════════"
 
 echo -e "${YELLOW}${BOLD}🔄 ESTE PROCESSO LEVARÁ DE 15 A 20 MINUTOS. 🔄${NC}"
@@ -19,6 +19,9 @@ fail() {
   echo -e "${RED}❌ $1${NC}"
   exit 1
 }
+
+echo -e "${GREEN}${BOLD}═══ Atualizando Pacotes do Sistema ═══${NC}"
+yes | pkg up &>/dev/null || echo -e "${YELLOW}⚠️ Atualização de pacotes falhou, continuando...${NC}"
 
 check_internet() {
   echo -e "${CYAN}🌐 Verificando conexão com a Internet (via ping para 8.8.8.8)..."
@@ -56,15 +59,15 @@ check_loop_running() {
   return 1
 }
 
-echo -e "${CYAN}🌐 Verificando Conexão com a Internet${NC}"
+echo -e "${GREEN}${BOLD}═══ Verificando Conexão com a Internet ═══${NC}"
 check_internet
 
-echo -e "${CYAN}🛠 Instalando Dependências${NC}"
+echo -e "${GREEN}${BOLD}═══ Instalando Dependências ═══${NC}"
 echo -e "${CYAN}🛠 Instalando git, golang e sqlite...${NC}"
 pkg install -y git golang sqlite curl &>/dev/null || fail "Falha ao instalar pacotes."
 command -v go > /dev/null || fail "Go não está instalado corretamente"
 
-echo -e "${CYAN}📥 Clonando Repositório${NC}"
+echo -e "${GREEN}${BOLD}═══ Clonando Repositório ═══${NC}"
 echo -e "${CYAN}Clonando o repositório do Layout's Automação...${NC}"
 echo ""
 git clone --branch main https://github.com/AlecioLopes/wuzapi.git &>/dev/null || fail "Falha ao clonar repositório"
@@ -73,26 +76,26 @@ echo ""
 
 cd wuzapi || fail "Não foi possível entrar no diretório wuzapi"
 
-echo -e "${CYAN}📦 Baixando Dependências${NC}"
+echo -e "${GREEN}${BOLD}═══ Baixando Dependências ═══${NC}"
 echo -e "${CYAN}📦 Baixando dependências...${NC}"
 go mod tidy &>/dev/null || fail "Falha em go mod tidy"
 
-echo -e "${CYAN}🔨 Compilando Binário${NC}"
+echo -e "${GREEN}${BOLD}═══ Compilando Binário ═══${NC}"
 echo ""
 echo -e "${CYAN}Compilando o binário...${NC}"
 echo ""
 go build . &>/dev/null || fail "Falha ao compilar"
 check_binary
 
-echo -e "${CYAN}🧩 Verificando Banco de Dados${NC}"
+echo -e "${GREEN}${BOLD}═══ Verificando Banco de Dados ═══${NC}"
 check_sqlite_db
 
-echo -e "${CYAN}🔐 Configurando Permissões dos Scripts${NC}"
+echo -e "${GREEN}${BOLD}═══ Configurando Permissões dos Scripts ═══${NC}"
 chmod +x iniciar_wuzapi.sh
 chmod +x loop_wuzapi.sh
 chmod +x kill_wuzAPI.sh
 
-echo -e "${CYAN}🚀 Iniciando Processo em Segundo Plano${NC}"
+echo -e "${GREEN}${BOLD}═══ Iniciando Processo em Segundo Plano ═══${NC}"
 if check_loop_running; then
   echo -e "${GREEN}✅ O processo loop já estava em execução."
 else
@@ -100,11 +103,11 @@ else
   nohup bash loop_wuzapi.sh > /dev/null 2>&1 &
 fi
 
-echo -e "${CYAN}🔐 Aplicando Permissões aos Arquivos${NC}"
+echo -e "${GREEN}${BOLD}═══ Aplicando Permissões aos Arquivos ═══${NC}"
 echo -e "${CYAN}🔐 Dando permissões a todos os arquivos...${NC}"
 chmod -R 777 . || fail "Não foi possível atribuir as permissões."
 
-echo -e "${CYAN}📲 Configurando Permissões para Apps Externas${NC}"
+echo -e "${GREEN}${BOLD}═══ Configurando Permissões para Apps Externas ═══${NC}"
 echo -e "${CYAN}📲 Configurando permissões para apps externas (Tasker)...${NC}"
 mkdir -p ~/.termux
 echo "allow-external-apps=true" >> ~/.termux/termux.properties
