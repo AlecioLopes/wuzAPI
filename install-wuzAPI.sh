@@ -9,7 +9,7 @@ RED='\033[1;31m'
 
 echo ""
 echo -e "${CYAN}${BOLD}═══════════════════════════════════════════════════"
-echo -e "${GREEN}       Bem-vindo ao ${BOLD}Layout's Automação v007${NC}${GREEN} 🚀"
+echo -e "${GREEN}       Bem-vindo ao ${BOLD}wuzAPI Automação v007${NC}${GREEN} 🚀"
 echo -e "${CYAN}═══════════════════════════════════════════════════"
 
 echo -e "${YELLOW}${BOLD}🔄 ESTE PROCESSO LEVARÁ DE 15 A 20 MINUTOS. 🔄${NC}"
@@ -50,12 +50,12 @@ check_sqlite_db() {
 }
 
 check_binary() {
-  [ -f "wuzapi" ] || fail "Binário wuzapi não encontrado após a compilação."
+  [ -f "wuzapi" ] || fail "Binário wuzAPI não encontrado após a compilação."
   chmod +x wuzapi
 }
 
 check_loop_running() {
-  pgrep -f loop_wuzapi.sh > /dev/null && echo -e "${YELLOW}ℹ️ O loop já está em execução.${NC}" && return 0
+  pgrep -f loop_wuzAPI.sh > /dev/null && echo -e "${YELLOW}ℹ️ O loop já está em execução.${NC}" && return 0
   return 1
 }
 
@@ -68,13 +68,13 @@ pkg install -y git golang sqlite curl &>/dev/null || fail "Falha ao instalar pac
 command -v go > /dev/null || fail "Go não está instalado corretamente"
 
 echo -e "${GREEN}${BOLD}═══ Clonando Repositório ═══${NC}"
-echo -e "${CYAN}Clonando o repositório do Layout's Automação...${NC}"
+echo -e "${CYAN}Clonando o repositório do wuzAPI Automação...${NC}"
 echo ""
 git clone --branch main https://github.com/AlecioLopes/wuzapi.git &>/dev/null || fail "Falha ao clonar repositório"
 echo -e "${GREEN}Repositório clonado com sucesso.${NC}"
 echo ""
 
-cd wuzapi || fail "Não foi possível entrar no diretório wuzapi"
+cd wuzapi || fail "Não foi possível entrar no diretório wuzAPI"
 
 echo -e "${GREEN}${BOLD}═══ Baixando Dependências ═══${NC}"
 echo -e "${CYAN}📦 Baixando dependências...${NC}"
@@ -91,16 +91,16 @@ echo -e "${GREEN}${BOLD}═══ Verificando Banco de Dados ═══${NC}"
 check_sqlite_db
 
 echo -e "${GREEN}${BOLD}═══ Configurando Permissões dos Scripts ═══${NC}"
-chmod +x iniciar_wuzapi.sh
-chmod +x loop_wuzapi.sh
+chmod +x iniciar_wuzAPI.sh
+chmod +x loop_wuzAPI.sh
 chmod +x kill_wuzAPI.sh
 
 echo -e "${GREEN}${BOLD}═══ Iniciando Processo em Segundo Plano ═══${NC}"
 if check_loop_running; then
   echo -e "${GREEN}✅ O processo loop já estava em execução."
 else
-  echo -e "${CYAN}🚀 Iniciando loop_wuzapi.sh em segundo plano...${NC}"
-  nohup bash loop_wuzapi.sh > /dev/null 2>&1 &
+  echo -e "${CYAN}🚀 Iniciando loop_wuzAPI.sh em segundo plano...${NC}"
+  nohup bash loop_wuzAPI.sh > /dev/null 2>&1 &
 fi
 
 echo -e "${GREEN}${BOLD}═══ Aplicando Permissões aos Arquivos ═══${NC}"
@@ -114,5 +114,5 @@ echo "allow-external-apps=true" >> ~/.termux/termux.properties
 termux-reload-settings || echo -e "${YELLOW}Não foi possível recarregar a configuração do Termux. Opcional${NC}"
 
 echo ""
-echo -e "\n${GREEN}✅ Layout's Automação foi instalado. Se você está vendo esta mensagem, está tudo certo e você pode continuar."
+echo -e "\n${GREEN}✅ wuzAPI Automação foi instalado. Se você está vendo esta mensagem, está tudo certo e você pode continuar."
 echo ""
